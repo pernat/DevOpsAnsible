@@ -1,0 +1,62 @@
+---
+- name: Lesson 1 Homework
+  hosts: all
+  
+  tasks:
+  - name: Apache install
+    yum:
+      name: httpd
+      state: latest
+      update_cache: yes
+    when: ansible_facts.os_family == "RedHat"
+
+  - name: Start service httpd, if not running
+    service:
+      name: httpd
+      state: started
+
+  - name: Check httpd
+    command: systemctl status httpd
+    register: result
+    ignore_errors: yes
+
+  - name: showing httpd status report
+    debug:
+      var: result
+
+  - name: Create file index.html
+    copy:
+      dest: "/var/www/html/index.html"
+      content: |
+        "Welcome to my web server"
+      mode: 0777
+
+  - name: Open 80 port
+    ansible.posix.firewalld:
+      port: 80/tcp
+      permanent: true
+      state: enabled
+
+  - name: Pause play until a URL is reachable from this host
+    uri:
+      url: "http://localhost"
+      follow_redirects: none
+      method: GET
+    register: _result
+    until: _result.status == 200
+    retries: 10
+    delay: 2
+
+
+  - name: Stop NetworkManager
+    command: systemctl stop NetworkManager
+
+  - name: Change grub
+    lineinfile:
+      path: /etc/selinux/config
+      regexp: '^GRUB_CMDLINE_LINUX='
+      line: GRUB_CMDLINE_LINUX="console=ttyS0 crashkernel=auto biosdevname=0 net.ifnames=0"
+
+  - name: Apply changes to grub
+    command: grub2-mkconfig
+...

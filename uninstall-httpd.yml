@@ -1,0 +1,31 @@
+---
+- name: Lesson 1 Homework part 2
+  hosts: all
+  
+  tasks:
+  - name: Apache remove
+    yum:
+      name: httpd
+      state: absent
+  
+  - name: Remove index.html
+    file:
+      path: /var/www/html/index.html
+      state: absent
+
+  - name: Close 80 port
+    ansible.posix.firewalld:
+      service: http
+      permanent: true
+      immediate: yes
+      state: disabled
+
+  - name: Pause play until a URL is reachable from this host
+    command: systemctl status httpd
+    register: result
+    ignore_errors: yes
+
+  - name: showing report
+    debug:
+      var: result
+...
