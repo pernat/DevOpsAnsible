@@ -37,6 +37,11 @@
       permanent: true
       state: enabled
 
+  - name: reload service firewalld
+    systemd:
+      name: firewalld
+      state: reloaded
+
   - name: Pause play until a URL is reachable from this host
     uri:
       url: "http://localhost"
@@ -46,7 +51,6 @@
     until: _result.status == 200
     retries: 10
     delay: 2
-
 
   - name: Stop NetworkManager
     command: systemctl stop NetworkManager
