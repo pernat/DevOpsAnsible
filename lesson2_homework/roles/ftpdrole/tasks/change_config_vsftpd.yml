@@ -1,0 +1,4 @@
+- name: copy config file of the vsftpd
+  template: src=vsftpd.conf.j2 dest=/etc/vsftpd/vsftpd.conf mode=644 backup=yes
+  notify:
+    - Restart vsftpd

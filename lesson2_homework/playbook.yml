@@ -1,0 +1,6 @@
+---
+- name: Lesson 2 Part 1 Homework
+  hosts: all
+  roles:
+    - apache
+...

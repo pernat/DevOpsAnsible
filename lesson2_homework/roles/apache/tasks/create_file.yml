@@ -1,0 +1,8 @@
+- name: Create file index.html
+  copy:
+    dest: "/var/www/html/index.html"
+    content: |
+      "Welcome to my web server"
+    mode: 0777
+  notify:
+    - Restart apache

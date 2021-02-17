@@ -1,0 +1,22 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Setup/install tasks.
+- name: Setup vsftpd task
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Start vsftpd service and check it task
+  include_tasks: start_and_check_vsftpd.yml
+
+- name: Open ports task
+  include_tasks: firewalld_open_port.yml
+
+- name: Config modify task
+  include_tasks: change_config_vsftpd.yml
+
+- name: Change public dir perm-s task
+  include_tasks: public_dir_perm.yml
+
+- name: Setup SELinux task
+  include_tasks: selinux_setup.yml

@@ -1,0 +1,4 @@
+---
+- name: Setup SElinux
+  command: |
+    setsebool -P allow_ftpd_anon_write on

@@ -1,0 +1,7 @@
+---
+- name: vsftpd install
+  yum:
+    name: "{{ vsftpd_package }}"
+    state: "{{ vsftpd_package_state }}"
+
+  when: ansible_facts.os_family == "RedHat"

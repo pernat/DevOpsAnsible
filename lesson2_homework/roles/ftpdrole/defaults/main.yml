@@ -1,0 +1,7 @@
+---
+### vsftpd.conf settings
+vsftpd_package: vsftpd
+vsftpd_package_state: latest
+vsftpdconf_anonymous_enable: "YES"
+vsftpdconf_anon_upload_enable: "YES"
+vsftpdconf_anon_mkdir_write_enable: "YES"

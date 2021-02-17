@@ -1,0 +1,17 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Setup/install tasks.
+- name: Setup Apache
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Start Apeche service and check it
+  include_tasks: start_and_check_httpd.yml
+
+- name: Create index.html file
+  include_tasks: create_file.yml
+
+- name: Open http port
+  include_tasks: firewalld_open_port.yml
+

@@ -1,0 +1,17 @@
+- name: Open all ports
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    zone: public
+    permanent: true
+    state: enabled
+  loop:
+    - 20/tcp
+    - 21/tcp
+    - 990/tcp
+    - 40000-50000/tcp
+
+
+- name: reload service firewalld
+  systemd:
+    name: firewalld
+    state: reloaded

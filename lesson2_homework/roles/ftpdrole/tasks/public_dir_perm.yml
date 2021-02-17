@@ -1,0 +1,6 @@
+---
+- name: Pub dir perm-s
+  command: |
+    mkdir -p /var/ftp/pub
+    chown ftp /var/ftp/pub
+    chown 755 /var/ftp/pub

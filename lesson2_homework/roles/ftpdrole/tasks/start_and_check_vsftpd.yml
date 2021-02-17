@@ -1,0 +1,5 @@
+- name: Start service vsftpd, if not running
+  service:
+    name: vsftpd
+    state: started
+

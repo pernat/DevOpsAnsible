@@ -1,0 +1,6 @@
+---
+- name: Lesson 2 Part 2 Homework
+  hosts: all
+  roles:
+    - ftpdrole
+...
