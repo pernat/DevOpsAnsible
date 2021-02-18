@@ -1,5 +1,5 @@
 - name: Open all ports
-  ansible.posix.firewalld:
+  firewalld:
     port: "{{ item }}"
     zone: public
     permanent: true

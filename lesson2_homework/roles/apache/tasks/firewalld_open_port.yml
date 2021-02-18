@@ -1,5 +1,5 @@
 - name: Open 80 port
-  ansible.posix.firewalld:
+  firewalld:
     port: 80/tcp
     permanent: true
     state: enabled
